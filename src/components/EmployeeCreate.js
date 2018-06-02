@@ -1,8 +1,4 @@
 import React, { Component } from 'react'
-import {
-  Picker,
-  Text
-} from 'react-native'
 import { connect } from 'react-redux'
 
 import {
@@ -42,6 +38,5 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, {
-  employeeUpdate,
   employeeCreate
 })(EmployeeCreate)

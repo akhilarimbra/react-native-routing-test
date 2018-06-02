@@ -12,7 +12,7 @@ import {
 
 class ListItem extends Component {
   onRowPress() {
-    Actions.createEmployee({
+    Actions.editEmployee({
       employee: this.props.employee
     })
   }

@@ -16,6 +16,8 @@ import {
 
 class EmployeeForm extends Component {
   render() {
+    console.log(this.props)
+
     return (
       <View>
         <CardSection>
@@ -60,11 +62,6 @@ const styles = {
   }
 }
 
-const mapStateToProps = state => {
-  const { name, phone, shift } = state.employeeForm
-  return { name, phone, shift }
-}
-
-export default connect(mapStateToProps, {
+export default connect(null, {
   employeeUpdate
 })(EmployeeForm)
