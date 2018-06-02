@@ -7,3 +7,5 @@ export const LOGIN_USER_STARTED = 'login_user_started'
 // Employees
 
 export const EMPLOYEE_UPDATE = 'employee_update'
+export const EMPLOYEE_CREATE = 'employee_create'
+export const EMPLOYEE_FETCH = 'employees_fetch'

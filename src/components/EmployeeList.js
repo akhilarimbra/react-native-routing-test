@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
 import {
-  View,
-  Text
 } from 'react-native'
+
+import {
+  Card,
+  CardSection
+} from './widgets'
 
 class EmployeeList extends Component {
   render() {
     return (
-      <View><Text>Hello</Text></View>
+      <Card>
+        <CardSection>
+        </CardSection>
+      </Card>
     )
   }
 }
