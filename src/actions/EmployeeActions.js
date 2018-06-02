@@ -37,7 +37,10 @@ export const employeeFetch = () => {
       .database()
       .ref(`/user/${uid}/employees`)
       .on('value', snapshot => {
-        
+        dispatch({
+          type: TYPE.EMPLOYEE_FETCH_SUCCESS,
+          payload: snapshot.val()
+        })
       })
   }
 }
