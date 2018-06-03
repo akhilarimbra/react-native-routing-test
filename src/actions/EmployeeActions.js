@@ -44,3 +44,20 @@ export const employeeFetch = () => {
       })
   }
 }
+
+export const employeeSave = ({ uid, name, phone, shift }) => {
+  const { currentUser } = firebase.auth()
+  return (dispatch) => {
+    firebase
+      .database()
+      .ref(`/user/${currentUser.uid}/employees/${uid}`)
+      .set({ name, phone, shift })
+      .then(() => {
+        Actions.main()
+        dispatch({
+          type: TYPE.EMPLOYEE_CREATE
+        })
+      })
+      .catch(error => alert(error.message))
+  }
+}

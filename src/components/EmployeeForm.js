@@ -16,8 +16,6 @@ import {
 
 class EmployeeForm extends Component {
   render() {
-    console.log(this.props)
-
     return (
       <View>
         <CardSection>

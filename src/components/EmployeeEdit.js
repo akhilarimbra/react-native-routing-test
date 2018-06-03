@@ -9,8 +9,10 @@ import {
 } from './widgets'
 import EmployeeForm from './EmployeeForm'
 import {
-  employeeUpdate
+  employeeUpdate,
+  employeeSave
 } from '../actions'
+import Communications from 'react-native-communications'
 
 class EmployeeEdit extends Component {
   componentWillMount() {
@@ -20,18 +22,35 @@ class EmployeeEdit extends Component {
   }
 
   onButtonPressed() {
-    const { name, phone, swift } = this.props
-    console.log(name, phone, shift)
+    let { employee: { uid }, employee, name, phone, shift, employeeSave } = this.props
+    name = name.length > 0 ? name : employee.name
+    phone = phone.length > 0 ? phone : employee.phone
+    shift = phone.length > 0 ? shift : employee.shift
+    employeeSave({ uid,
+      name,
+      phone,
+      shift,
+    })
+  }
+
+  onTextPressed() {
+    const { phone, shift } = this.props
+    Communications.text(
+      phone,
+      `Your upcoming shift is on ${shift}`
+    )
   }
 
   render() {
     console.log(this.props)
-
     return (
       <Card>
         <EmployeeForm {...this.props.employee} />
         <CardSection>
           <Button onPress={this.onButtonPressed.bind(this)} title='Update' />
+        </CardSection>
+        <CardSection>
+          <Button onPress={this.onTextPressed.bind(this)} title='Text Schedule' />
         </CardSection>
       </Card>
     )
@@ -44,5 +63,6 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, {
-  employeeUpdate
+  employeeUpdate,
+  employeeSave
 })(EmployeeEdit)
