@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
+import Communications from 'react-native-communications'
 
 import {
   Card,
@@ -10,11 +11,16 @@ import {
 import EmployeeForm from './EmployeeForm'
 import {
   employeeUpdate,
-  employeeSave
+  employeeSave,
+  employeeDelete
 } from '../actions'
-import Communications from 'react-native-communications'
+import ConfirmModal from './ConfirmModal'
 
 class EmployeeEdit extends Component {
+  state = {
+    visible: false
+  }
+
   componentWillMount() {
     _.each(this.props.employee, (value, property) => {
       this.props.employeeUpdate({ property, value })
@@ -41,6 +47,11 @@ class EmployeeEdit extends Component {
     )
   }
 
+  onAccept() {
+    const { employee: { uid }, employeeDelete } = this.props
+    employeeDelete({ uid })
+  }
+
   render() {
     console.log(this.props)
     return (
@@ -52,6 +63,13 @@ class EmployeeEdit extends Component {
         <CardSection>
           <Button onPress={this.onTextPressed.bind(this)} title='Text Schedule' />
         </CardSection>
+        <CardSection>
+          <Button onPress={() => this.setState({ visible: !this.state.visible })} title='Fire' />
+        </CardSection>
+        <ConfirmModal
+          onAccept={() => this.onAccept.bind(this)}
+          onDecline={() => this.setState({ visible: !this.state.visible })}
+          visible={this.state.visible}/>
       </Card>
     )
   }
@@ -64,5 +82,6 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   employeeUpdate,
-  employeeSave
+  employeeSave,
+  employeeDelete
 })(EmployeeEdit)

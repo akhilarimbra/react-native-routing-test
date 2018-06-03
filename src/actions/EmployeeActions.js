@@ -61,3 +61,21 @@ export const employeeSave = ({ uid, name, phone, shift }) => {
       .catch(error => alert(error.message))
   }
 }
+
+export const employeeDelete = ({ uid }) => {
+  alert('called')
+  const { currentUser } = firebase.auth()
+  return (dispatch) => {
+    firebase
+      .database()
+      .ref(`/user/${currentUser.uid}/employees/${uid}`)
+      .remove()
+      .then(() => {
+        Actions.main()
+        dispatch({
+          type: TYPE.EMPLOYEE_CREATE
+        })
+      })
+      .catch(error => alert(error.message))
+  }
+}
